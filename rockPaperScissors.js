@@ -67,7 +67,7 @@ function game() {
     let compScore = 0;
 
     for(let i = 0; i < 5; i++) {
-        const playerChoice = "scissors";
+        const playerChoice = prompt(`enter "rock", "paper", or "scissors"`);
         const compChoice = getComputerChoice();
         const roundWinner = playRound(playerChoice, compChoice);
         
