@@ -16,6 +16,20 @@ function getComputerChoice() {
 }
 
 /*
+    desc: displays information about a round with given winner, winnerChoice, and 
+    loserChoice
+*/
+function displayRoundResults (winner, playerChoice, compChoice) {
+    if(winner === "tie") {
+        console.log(`it was a tie, no winner this round!`)
+    } else if (winner === "player") {
+        console.log(`you won! ${playerChoice} beats ${compChoice}`);
+    } else {
+        console.log(`you lose! ${compChoice} beats ${playerChoice}`);
+    }
+}
+
+/*
     desc: returns a string indicating whether the player won or lost that round
 */
 function playRound(playerSelection, computerSelection) {
@@ -23,24 +37,24 @@ function playRound(playerSelection, computerSelection) {
     const computerChoice = computerSelection.toLowerCase();
 
     if (playerChoice === computerChoice) {
-        return "you tied!";
+        return "tie";
     } else if (playerChoice === "rock") {
         if (computerChoice === "paper") {
-            return `you lose! ${computerChoice} beats ${playerChoice}`;
+            return `comp`;
         } else {
-            return `you win! ${playerChoice} beats ${computerChoice}`;
+            return `player`;
         }
     } else if (playerChoice == "paper") {
         if (computerChoice === "rock") {
-            return `you win! ${playerChoice} beats ${computerChoice}`;
+            return `player`;
         } else {
-            return `you lose! ${computerChoice} beats ${playerChoice}`;
+            return `comp`;
         }
     } else {
         if(computerChoice === "rock") {
-            return `you lose! ${computerChoice} beats ${playerChoice}`;
+            return `comp`;
         } else {
-            return `you win! ${playerChoice} beats ${computerChoice}`;
+            return `player`;
         }
     }
 }
@@ -55,16 +69,19 @@ function game() {
     for(let i = 0; i < 5; i++) {
         const playerChoice = "scissors";
         const compChoice = getComputerChoice();
-        const roundResult = playRound(playerChoice, compChoice);
-        console.log(roundResult);
-        if (roundResult.includes("win")) {
+        const roundWinner = playRound(playerChoice, compChoice);
+        
+        // add point to winner's score
+        if (roundWinner === "player") {
             playerScore++;
-        } else if (roundResult.includes("lose")) {
+        } else if (roundWinner === "comp") {
             compScore++;
         } else {
             // round is tied, do not include round in total 5
             i--;
         }
+
+        displayRoundResults(roundWinner, playerChoice, compChoice);
     }
 
     console.log(`player score: ${playerScore}`);
