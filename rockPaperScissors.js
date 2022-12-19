@@ -16,10 +16,38 @@ function getComputerChoice() {
 }
 
 /*
+    returns game winner if there is one, otherwise returns false
+*/
+function getGameWinner() {
+    const playerScore = document.querySelector("#player-score").textContent;
+    const compScore = document.querySelector("#comp-score").textContent;
+    if(playerScore == 5) {
+        return "player";
+    } else if(compScore == 5) {
+        return "comp";
+    } else {
+        return "";
+    }
+}
+
+/*
+    desc: updates the score using the given winner of the round;
+        will not update if there is a tie
+*/
+function incrementScore(winner) {
+    if(winner !== "tie") {
+        const scoreElement = document.querySelector(`#${winner}-score`);
+        let score = Number(scoreElement.textContent);
+        scoreElement.textContent = score + 1;
+    }
+}
+
+/*
     desc: displays information about a round with given winner, winnerChoice, and 
     loserChoice
 */
 function displayRoundResults (winner, playerChoice, compChoice) {
+    const scoreboard = document.querySelector(".scoreboard");
     if(winner === "tie") {
         console.log(`it was a tie, no winner this round!`)
     } else if (winner === "player") {
@@ -30,63 +58,43 @@ function displayRoundResults (winner, playerChoice, compChoice) {
 }
 
 /*
-    desc: returns a string indicating whether the player won or lost that round
+    desc: returns a string indicating who won the round: 'comp' or 'player'
+    or 'tie'
 */
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
     const playerChoice = playerSelection.toLowerCase();
-    const computerChoice = computerSelection.toLowerCase();
+    const computerChoice = getComputerChoice();
+    let winner;
 
+    // get round winner
     if (playerChoice === computerChoice) {
-        return "tie";
+        winner = "tie";
     } else if (playerChoice === "rock") {
-        if (computerChoice === "paper") {
-            return `comp`;
-        } else {
-            return `player`;
-        }
+        computerChoice === "paper" ? winner = "comp" : winner = "player";
     } else if (playerChoice == "paper") {
-        if (computerChoice === "rock") {
-            return `player`;
-        } else {
-            return `comp`;
-        }
+        computerChoice === "scissors" ? winner = "comp" : winner = "player"; 
     } else {
-        if(computerChoice === "rock") {
-            return `comp`;
-        } else {
-            return `player`;
-        }
+        computerChoice === "rock" ? winner = "comp" : winner = "player";
+    }
+
+    // update score
+    incrementScore(winner);
+
+
+    displayRoundResults(winner, playerChoice, computerChoice);
+    let gameWinner = getGameWinner();
+    if (gameWinner) {
+        console.log(gameWinner);
+        console.log("game ova");
     }
 }
 
-/*
-    desc: plays 5 rounds and displays the game winner and scores
-*/
-function game() {
-    let playerScore = 0;
-    let compScore = 0;
-
-    for(let i = 0; i < 5; i++) {
-        const playerChoice = prompt(`enter "rock", "paper", or "scissors"`);
-        const compChoice = getComputerChoice();
-        const roundWinner = playRound(playerChoice, compChoice);
-        
-        // add point to winner's score
-        if (roundWinner === "player") {
-            playerScore++;
-        } else if (roundWinner === "comp") {
-            compScore++;
-        } else {
-            // round is tied, do not include round in total 5
-            i--;
-        }
-
-        displayRoundResults(roundWinner, playerChoice, compChoice);
-    }
-
-    console.log(`player score: ${playerScore}`);
-    console.log(`computer score: ${compScore}`);
+/* set up game buttons, scoreboard */
+function setup() {
+    const options = document.querySelectorAll(".option");
+    options.forEach((button) => {
+        button.addEventListener('click', () => playRound(button.id));
+    })
 }
 
-
-game();
+setup();

@@ -1,0 +1,42 @@
+body {
+    background-color: #E4D7F7;
+}
+
+
+.options {
+    background-color: #B496F7;
+    padding: 30px 0px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    /*gap: 100px;*/
+    border-radius: 40px;
+}
+
+#options-header {
+    color: white;
+    font-size: 38px;
+    flex: 1 1 100%;
+    text-align: center;
+    margin: 0px;
+    padding-bottom: 25px;
+}
+
+.option {
+    flex: 0 1 auto;
+    width: 100px;
+    height: 100px;
+    transition: all 0.6s ease;
+    padding: 0px 40px;
+}
+
+img {
+    width: 100px;
+    height: auto;
+    
+}
+
+.option:hover {
+    transform: scale(1.1);
+}
