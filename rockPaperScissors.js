@@ -47,13 +47,13 @@ function incrementScore(winner) {
     loserChoice
 */
 function displayRoundResults (winner, playerChoice, compChoice) {
-    const scoreboard = document.querySelector(".scoreboard");
+    const roundResults = document.querySelector("#round-results");
     if(winner === "tie") {
-        console.log(`it was a tie, no winner this round!`)
+        roundResults.textContent = `it was a tie, no winner this round!`;
     } else if (winner === "player") {
-        console.log(`you won! ${playerChoice} beats ${compChoice}`);
+        roundResults.textContent = `you won! ${playerChoice} beats ${compChoice}`;
     } else {
-        console.log(`you lose! ${compChoice} beats ${playerChoice}`);
+        roundResults.textContent = `you lose! ${compChoice} beats ${playerChoice}`;
     }
 }
 
@@ -77,24 +77,76 @@ function playRound(playerSelection) {
         computerChoice === "rock" ? winner = "comp" : winner = "player";
     }
 
-    // update score
+    // update score and display round results
     incrementScore(winner);
-
-
     displayRoundResults(winner, playerChoice, computerChoice);
+
+    // check for winner, end game if so
     let gameWinner = getGameWinner();
     if (gameWinner) {
-        console.log(gameWinner);
-        console.log("game ova");
+        gameOver(gameWinner);
     }
 }
 
-/* set up game buttons, scoreboard */
-function setup() {
+/*
+    displays "Game Over" screen with final scores and button to reset game
+*/
+function gameOver(gameWinner) {
+    const playerScore = document.querySelector("#player-score").textContent;
+    const compScore = document.querySelector("#comp-score").textContent;
+    const gameboard = document.querySelector("#gameboard");
+    const body = document.querySelector("body");
+    const gameClone = gameboard.cloneNode(true);
+
+    // remove old game
+    gameboard.remove();
+
+    // create panel for game results
+    const gameResultsPanel = document.createElement("div");
+    gameResultsPanel.id = "game-results-panel";
+    gameResultsPanel.classList.add("panel");
+    body.appendChild(gameResultsPanel);
+
+    // add label and final scores
+    const winnerHeader = document.createElement("h1");
+    winnerHeader.textContent = "game over";
+    gameResultsPanel.appendChild(winnerHeader);
+    
+
+    const gameOverHeader = document.createElement("h2");
+    gameOverHeader.id = "game-over-header";
+    gameOverHeader.textContent = `${gameWinner} wins`;
+    gameResultsPanel.appendChild(gameOverHeader);
+    
+
+    // add button to reset game
+    const resetBtn = document.createElement("button");
+    resetBtn.id = "reset-btn";
+    resetBtn.textContent = "try again?";
+    resetBtn.addEventListener("click", () => {
+        body.appendChild(gameClone);
+        newGame();
+        gameResultsPanel.remove();
+    });
+    gameResultsPanel.appendChild(resetBtn);
+
+}
+
+
+/* 
+    desc: reset player and comp scores to 0 and 
+    set up option buttons
+*/
+function newGame() {
+    document.querySelector("#player-score").textContent = 0;
+    document.querySelector("#comp-score").textContent = 0;
+
+
     const options = document.querySelectorAll(".option");
     options.forEach((button) => {
         button.addEventListener('click', () => playRound(button.id));
     })
 }
 
-setup();
+//newGame();
+gameOver();
