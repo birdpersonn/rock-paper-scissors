@@ -2,15 +2,14 @@ body {
     background-color: #E4D7F7;
 }
 
-
 .options {
     background-color: #B496F7;
-    padding: 30px 0px;
+    padding: 40px 0px;
+    margin: 20px 30px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     align-items: center;
-    /*gap: 100px;*/
+    flex-wrap: wrap;
     border-radius: 40px;
 }
 
@@ -19,8 +18,9 @@ body {
     font-size: 38px;
     flex: 1 1 100%;
     text-align: center;
+    vertical-align: middle;
     margin: 0px;
-    padding-bottom: 25px;
+    padding-bottom: 40px;
 }
 
 .option {
@@ -31,12 +31,27 @@ body {
     padding: 0px 40px;
 }
 
+.option:hover {
+    transform: scale(1.1);
+}
+
 img {
     width: 100px;
     height: auto;
     
 }
 
-.option:hover {
-    transform: scale(1.1);
+.scoreboard {
+    background-color: rgb(255, 255, 255, .35);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px dashed white;
+    margin: 0px 30px;
+}
+
+.score {
+    display: flex;
+    gap: 40px;
 }
