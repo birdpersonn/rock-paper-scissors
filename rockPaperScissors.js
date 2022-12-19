@@ -108,15 +108,14 @@ function gameOver(gameWinner) {
     body.appendChild(gameResultsPanel);
 
     // add label and final scores
-    const winnerHeader = document.createElement("h1");
-    winnerHeader.textContent = "game over";
-    gameResultsPanel.appendChild(winnerHeader);
-    
-
     const gameOverHeader = document.createElement("h2");
-    gameOverHeader.id = "game-over-header";
-    gameOverHeader.textContent = `${gameWinner} wins`;
+    gameOverHeader.textContent = "game over";
     gameResultsPanel.appendChild(gameOverHeader);
+    
+    const winnerHeader = document.createElement("h1");
+    winnerHeader.id = "winner-header";
+    winnerHeader.textContent = `${gameWinner} wins`;
+    gameResultsPanel.appendChild(winnerHeader);
     
 
     // add button to reset game
@@ -129,7 +128,6 @@ function gameOver(gameWinner) {
         gameResultsPanel.remove();
     });
     gameResultsPanel.appendChild(resetBtn);
-
 }
 
 
