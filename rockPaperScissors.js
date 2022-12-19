@@ -146,5 +146,4 @@ function newGame() {
     })
 }
 
-//newGame();
-gameOver();
+newGame();
