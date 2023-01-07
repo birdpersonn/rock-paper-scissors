@@ -95,11 +95,9 @@ function gameOver(gameWinner) {
     const gameboard = document.querySelector("#gameboard");
     const body = document.querySelector("body");
     const gameClone = gameboard.cloneNode(true);
-    const footer = document.querySelector("#source");
 
     // remove old game and footer
     gameboard.remove();
-    footer.remove();
 
     // create panel for game results
     const gameResultsPanel = document.createElement("div");
