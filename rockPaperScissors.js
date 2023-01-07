@@ -92,14 +92,14 @@ function playRound(playerSelection) {
     displays "Game Over" screen with final scores and button to reset game
 */
 function gameOver(gameWinner) {
-    const playerScore = document.querySelector("#player-score").textContent;
-    const compScore = document.querySelector("#comp-score").textContent;
     const gameboard = document.querySelector("#gameboard");
     const body = document.querySelector("body");
     const gameClone = gameboard.cloneNode(true);
+    const footer = document.querySelector("#source");
 
-    // remove old game
+    // remove old game and footer
     gameboard.remove();
+    footer.remove();
 
     // create panel for game results
     const gameResultsPanel = document.createElement("div");
