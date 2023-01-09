@@ -93,10 +93,11 @@ function playRound(playerSelection) {
 */
 function gameOver(gameWinner) {
     const gameboard = document.querySelector("#gameboard");
-    const body = document.querySelector("body");
+    const body = document.querySelector("#game");
     const gameClone = gameboard.cloneNode(true);
+    const footer = document.querySelector("footer");
 
-    // remove old game and footer
+    // remove old game
     gameboard.remove();
 
     // create panel for game results
@@ -104,6 +105,7 @@ function gameOver(gameWinner) {
     gameResultsPanel.id = "game-results-panel";
     gameResultsPanel.classList.add("panel");
     body.appendChild(gameResultsPanel);
+    body.appendChild(footer);
 
     // add label and final scores
     const gameOverHeader = document.createElement("h2");
@@ -121,9 +123,11 @@ function gameOver(gameWinner) {
     resetBtn.id = "reset-btn";
     resetBtn.textContent = "try again?";
     resetBtn.addEventListener("click", () => {
-        body.appendChild(gameClone);
-        newGame();
         gameResultsPanel.remove();
+        body.appendChild(gameClone);
+        body.appendChild(footer);
+        console.log("yo");
+        newGame();
     });
     gameResultsPanel.appendChild(resetBtn);
 }
